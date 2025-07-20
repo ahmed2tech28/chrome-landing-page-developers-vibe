@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "Dev New Tab by Ahmed",
+    "description": "Custom developer-focused new tab page with links, name, quotes, and clock.",
+    "version": "1.0",
+    "chrome_url_overrides": {
+      "newtab": "index.html"
+    },
+    "permissions": ["storage"]
+  }
+  
