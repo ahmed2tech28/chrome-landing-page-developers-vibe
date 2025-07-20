@@ -18,12 +18,17 @@ function updateClock() {
   document.getElementById("quote").textContent =
     quotes[Math.floor(Math.random() * quotes.length)];
   
-  // Load/Save config
+  // Modal Elements
+  const modal = document.getElementById("configModal");
+  const nameInput = document.getElementById("nameInput");
+  const linksInput = document.getElementById("linksInput");
+  
+  // Helpers
   function getConfig() {
     const saved = localStorage.getItem("devConfig");
     if (!saved) {
       const config = {
-        devName: "Ahmed",
+        devName: "",
         devLinks: [
           { name: "GitHub", url: "https://github.com" },
           { name: "StackOverflow", url: "https://stackoverflow.com" },
@@ -34,7 +39,11 @@ function updateClock() {
       localStorage.setItem("devConfig", JSON.stringify(config));
       return config;
     }
-    return JSON.parse(saved);
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return { devName: "", devLinks: [] };
+    }
   }
   
   function saveConfig(config) {
@@ -43,7 +52,7 @@ function updateClock() {
   
   function render() {
     const { devName, devLinks } = getConfig();
-    document.getElementById("greeting").textContent = `🚀 Keep coding, ${devName}!`;
+    document.getElementById("greeting").textContent = `🚀 Keep coding, ${devName || "Dev"}!`;
   
     const linksDiv = document.getElementById("links");
     linksDiv.innerHTML = "";
@@ -54,19 +63,30 @@ function updateClock() {
       a.target = "_blank";
       linksDiv.appendChild(a);
     });
+  
+    if (!devName || devName === "Dev") {
+      openConfigModal(true); // ask for name on first load
+    }
   }
-  render();
   
-  // Config modal
-  const modal = document.getElementById("configModal");
-  const nameInput = document.getElementById("nameInput");
-  const linksInput = document.getElementById("linksInput");
-  
-  document.getElementById("configBtn").onclick = () => {
+  function openConfigModal(forceNameOnly = false) {
     const { devName, devLinks } = getConfig();
     nameInput.value = devName;
     linksInput.value = JSON.stringify(devLinks, null, 2);
     modal.style.display = "flex";
+  
+    if (forceNameOnly) {
+      linksInput.disabled = true;
+      document.getElementById("saveConfigBtn").textContent = "Save Name";
+    } else {
+      linksInput.disabled = false;
+      document.getElementById("saveConfigBtn").textContent = "✅ Save";
+    }
+  }
+  
+  // Button Actions
+  document.getElementById("configBtn").onclick = () => {
+    openConfigModal(false);
   };
   
   document.getElementById("closeConfigBtn").onclick = () => {
@@ -76,9 +96,12 @@ function updateClock() {
   document.getElementById("saveConfigBtn").onclick = () => {
     try {
       const newName = nameInput.value.trim() || "Dev";
-      const newLinks = JSON.parse(linksInput.value);
-      if (!Array.isArray(newLinks)) throw new Error("Links must be an array.");
-      saveConfig({ devName: newName, devLinks: newLinks });
+      const linksJson = linksInput.disabled
+        ? getConfig().devLinks
+        : JSON.parse(linksInput.value);
+  
+      if (!Array.isArray(linksJson)) throw new Error("Links must be an array.");
+      saveConfig({ devName: newName, devLinks: linksJson });
       render();
       modal.style.display = "none";
     } catch (e) {
@@ -101,6 +124,7 @@ function updateClock() {
   document.getElementById("importBtn").onclick = () => {
     document.getElementById("fileInput").click();
   };
+  
   document.getElementById("fileInput").addEventListener("change", function () {
     const file = this.files[0];
     if (!file) return;
@@ -120,4 +144,7 @@ function updateClock() {
     };
     reader.readAsText(file);
   });
+  
+  // Run on first load
+  render();
   
