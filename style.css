@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #0f1117;
+  color: #d1d5db;
+  font-family: 'Fira Code', monospace;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  text-align: center;
+  max-width: 600px;
+}
+.greeting {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.clock {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+blockquote {
+  font-style: italic;
+  color: #9ca3af;
+  margin-bottom: 1.5rem;
+}
+.links {
+  margin-bottom: 1rem;
+}
+.links a {
+  display: inline-block;
+  margin: 0 0.5rem;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: bold;
+}
+.links a:hover {
+  text-decoration: underline;
+}
+button {
+  margin: 0.2rem;
+  padding: 6px 12px;
+  background: #1f2937;
+  color: #f3f4f6;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background: #374151;
+}
+.hint {
+  margin-top: 1.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-content {
+  background: #1f2937;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal-content label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 8px;
+  background: #111827;
+  color: white;
+  border: 1px solid #374151;
+  border-radius: 4px;
+}

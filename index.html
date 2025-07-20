@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Tab - Developer Vibes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="greeting" id="greeting">🚀 Keep coding!</h1>
+    <div class="clock" id="clock">00:00:00</div>
+    <blockquote id="quote">Loading quote...</blockquote>
+    <div class="links" id="links"></div>
+
+    <button id="configBtn">⚙️ Configure</button>
+    <button id="exportBtn">⬇ Export</button>
+    <button id="importBtn">⬆ Import</button>
+    <input type="file" id="fileInput" accept=".json" hidden />
+
+    <p class="hint">⌘ + Shift + P → Command Palette (VS Code style)</p>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="configModal">
+    <div class="modal-content">
+      <h2>Configuration</h2>
+      <label>
+        Your Name:
+        <input type="text" id="nameInput" />
+      </label>
+      <label>
+        Your Links (JSON array):
+        <textarea id="linksInput" rows="6"></textarea>
+      </label>
+      <button id="saveConfigBtn">✅ Save</button>
+      <button id="closeConfigBtn">❌ Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
