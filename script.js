@@ -1,7 +1,7 @@
 // Clock
 function updateClock() {
     const now = new Date();
-    const time = now.toLocaleTimeString('en-US', { hour12: false });
+    const time = now.toLocaleTimeString('en-US', { hour12: true });
     document.getElementById('clock').textContent = time;
   }
   setInterval(updateClock, 1000);
